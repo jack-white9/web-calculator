@@ -29,7 +29,7 @@ body {
     grid-template-rows: repeat(7, 1fr);
 }
 
-.display {
+.displayContainer {
     background-color: #B5D2CB;
     grid-column-start: 1;
     grid-column-end: 5;
@@ -37,6 +37,27 @@ body {
     grid-row-end: 3;
     margin: 0.25em;
     border: 0.1em solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: end;
+}
+
+.displayEquation {
+    height: 30%;
+    width: 100%;
+    margin: 0;
+    padding-top: 1em;
+    padding-right: 0.5em;
+    font-size: 24px;
+}
+
+.displayResult {
+    height: 50%;
+    width: 100%;
+    margin: 0;
+    padding-right: 0.5em;
+    font-size: 48px;
 }
 
 .clear {

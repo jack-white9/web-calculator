@@ -1,7 +1,3 @@
-/* bg / button hover colour: #A09EBB */
-/* display: #B5D2CB */
-/* button colour: #A8AEC1 */
-
 body {
     background-color: #ededed;
     font-family: sans-serif;
@@ -58,7 +54,6 @@ body {
 }
 
 .clear:hover, .delete:hover, .button:hover {
-    /* background-color: #A8AEC1; */
     filter: brightness(80%);
 }
 

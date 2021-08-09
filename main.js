@@ -1,12 +1,3 @@
-let displayOutput = '';
-let operator;
-let userValues = [];
-let output;
-let userInput;
-let buttons = document.querySelectorAll('.button');
-let displayEquation = document.querySelector('.displayEquation');
-let displayResult = document.querySelector('.displayResult');
-
 function add(a, b) {
     return a + b;
 }
@@ -21,87 +12,108 @@ function multiply(a, b) {
 
 function divide(a, b) {
     return a / b;
-    // needs error handling for division by 0
 }
 
-function operate(a, b, operator) {
+function operate(operator, a, b) {
+    a = Number(a);
+    b = Number(b);
     switch (operator) {
         case '+':
-            return add(a, b);
+            return add(a, b).toPrecision(8);
         case '-':
-            return subtract(a, b);
-        case '*':
-            return multiply(a, b);
-        case '/':
-            return divide(a, b);
+            return subtract(a, b).toPrecision(8);
+        case '×':
+            return multiply(a, b).toPrecision(8);
+        case '÷':
+            return divide(a, b).toPrecision(8);
+        default:
+            break;
     }
 }
 
-function moveOutputToEquation(operator) {
-    if (displayEquation.textContent !== '') {
-        displayEquation.textContent += ' ' + displayOutput.toString() + ' ' + operator;
-    } else {
-        displayEquation.textContent = displayOutput.toString() + ' ' + operator;
-    }
-    displayResult.textContent = '';
-    displayOutput = '';
-}
+// -------------------------------------------------------------------------
 
-function operatorButton(operatorArgument) {
-    userValues.push(parseFloat(displayOutput));
-    moveOutputToEquation(operatorArgument);
-    if (userValues.length === 2) {
-        userValues = [operate(userValues[0], userValues[1], operatorArgument)];
-        console.log(userValues)
-        displayResult.textContent = userValues[0];
-    } else {
-        operator = operatorArgument;
-    }
-}
+const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator');
+const upperDisplay = document.querySelector('.upperDisplay');
+const lowerDisplay = document.querySelector('.lowerDisplay');
+const decimal = document.querySelector('.decimal');
+const clearButton = document.querySelector('.clear');
+const deleteButton = document.querySelector('.delete');
 
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        userInput = button.classList[1];
 
-        if (userInput == parseInt(userInput)) { 
-            displayOutput = displayOutput + userInput;
-            displayResult.textContent = displayOutput;
-            console.log(displayOutput); //
-        } else if (userInput === '.' && !displayOutput.includes('.')) {
-            displayOutput = displayOutput + userInput;
-            displayResult.textContent = displayOutput;
+let firstNum = '';
+let secondNum = '';
+let operator = '';
+
+lowerDisplay.textContent = 0;
+
+numbers.forEach(number => {
+    number.addEventListener('click', e => {
+        if (operator === '') { // Read first number if no operator has been set
+            if (firstNum.length <= 8) {
+                firstNum += e.target.innerText;
+                lowerDisplay.textContent = firstNum;
+            }
+        } else { // Read second number if operator has been clicked
+            if (secondNum.length <= 8) {
+                secondNum += e.target.innerText;
+                lowerDisplay.textContent = secondNum;
+            }
         }
-
-        switch (userInput) {
-            case 'equals':
-                userValues.push(parseFloat(displayOutput));
-                console.log(userValues)
-                if (userValues.length === 2 && operator != undefined) {
-                    output = operate(userValues[0], userValues[1], operator);
-                    displayResult.textContent = output;
-                    displayOutput = '';
-                    userValues = [];
-                }
-                displayEquation.textContent = '';
-                console.log(output); //
-                break;
-            
-            case 'add':
-                operatorButton('+');
-                break;
-
-            case 'subtract':
-                operatorButton('-');
-                break;
-            
-            case 'multiply':
-                operatorButton('*');
-                break;
-            
-            case 'divide':
-                operatorButton('/');
-                break;
-        }
-        console.log(userValues)
-    });
+    })
 });
+
+decimal.addEventListener('click', e =>{
+    if (operator === '' && !firstNum.includes('.')) {
+        firstNum += '.';
+        lowerDisplay.textContent = firstNum;
+    } else if (!secondNum.includes('.')) {
+        secondNum += '.';
+        lowerDisplay.textContent = secondNum;
+    }
+})
+
+operators.forEach(op => {
+    op.addEventListener('click', e => {
+        if (e.target.innerText !== '=') {
+            if (secondNum !== '') {
+                result = operate(operator, firstNum, secondNum);
+                lowerDisplay.textContent = result;
+                firstNum = result;
+                secondNum = '';
+                operator = e.target.innerText;
+            } else {
+                operator = e.target.innerText;
+            }
+            upperDisplay.textContent = operator;
+        } else {
+            result = operate(operator, firstNum, secondNum);
+            lowerDisplay.textContent = result;
+            upperDisplay.textContent = '';
+        }
+    })
+})
+
+clearButton.addEventListener('click', () => {
+    firstNum = '';
+    secondNum = '';
+    result = '';
+    lowerDisplay.textContent = '0';
+})
+
+deleteButton.addEventListener('click', () => {
+    if (operator === '') {
+        firstNum = firstNum.substring(0, firstNum.length - 1);
+        lowerDisplay.textContent = firstNum;
+    } else {
+        secondNum = secondNum.substring(0, secondNum.length - 1);
+        lowerDisplay.textContent = secondNum;
+    }
+})
+
+/*
+Bugs:
+1. Results have trailing 0s to meet .toPrecision() method requirements
+2. User inputted numbers can lead with 0 which is visually unappealing
+*/

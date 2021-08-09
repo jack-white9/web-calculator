@@ -43,16 +43,16 @@ body {
     text-align: end;
 }
 
-.displayEquation {
+.upperDisplay {
     height: 30%;
     width: 100%;
     margin: 0;
     padding-top: 1em;
-    padding-right: 0.5em;
+    padding-right: 1em;
     font-size: 24px;
 }
 
-.displayResult {
+.lowerDisplay {
     height: 50%;
     width: 100%;
     margin: 0;
@@ -68,13 +68,13 @@ body {
     background-color: #a1caf1;
 }
 
-.clear, .delete, .button {
+.clear, .delete, .number, .operator, .decimal {
     margin: 0.25em;
     border: 0.1em solid black;
     font-size: large;
 }
 
-.clear:hover, .delete:hover, .button:hover {
+.clear:hover, .delete:hover, .number:hover, .operator:hover, .decimal:hover {
     filter: brightness(80%);
 }
 

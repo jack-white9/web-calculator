@@ -31,8 +31,6 @@ function operate(operator, a, b) {
     }
 }
 
-// -------------------------------------------------------------------------
-
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const upperDisplay = document.querySelector('.upperDisplay');

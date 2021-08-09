@@ -109,8 +109,3 @@ deleteButton.addEventListener('click', () => {
         lowerDisplay.textContent = secondNum;
     }
 })
-
-/*
-Bugs:
-1. User inputted numbers can lead with 0 which is visually unappealing
-*/

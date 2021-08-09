@@ -19,13 +19,13 @@ function operate(operator, a, b) {
     b = Number(b);
     switch (operator) {
         case '+':
-            return add(a, b).toPrecision(8);
+            return parseFloat(add(a, b).toPrecision(8)); // Caps answers at 8 sig figs while also removing trailing 0s
         case '-':
-            return subtract(a, b).toPrecision(8);
+            return parseFloat(subtract(a, b).toPrecision(8));
         case '×':
-            return multiply(a, b).toPrecision(8);
+            return parseFloat(multiply(a, b).toPrecision(8));
         case '÷':
-            return divide(a, b).toPrecision(8);
+            return parseFloat(divide(a, b).toPrecision(8));
         default:
             break;
     }
@@ -114,6 +114,5 @@ deleteButton.addEventListener('click', () => {
 
 /*
 Bugs:
-1. Results have trailing 0s to meet .toPrecision() method requirements
-2. User inputted numbers can lead with 0 which is visually unappealing
+1. User inputted numbers can lead with 0 which is visually unappealing
 */

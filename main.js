@@ -47,7 +47,7 @@ let operator = '';
 lowerDisplay.textContent = 0;
 
 numbers.forEach(number => {
-    number.addEventListener('click', e => {
+    number.addEventListener('mousedown', e => {
         if (operator === '') { // Read first number if no operator has been set
             if (firstNum.length <= 8) {
                 firstNum += e.target.innerText;
@@ -62,7 +62,7 @@ numbers.forEach(number => {
     })
 });
 
-decimal.addEventListener('click', e =>{
+decimal.addEventListener('mousedown', e =>{
     if (operator === '' && !firstNum.includes('.')) {
         firstNum += '.';
         lowerDisplay.textContent = firstNum;
@@ -73,7 +73,7 @@ decimal.addEventListener('click', e =>{
 })
 
 operators.forEach(op => {
-    op.addEventListener('click', e => {
+    op.addEventListener('mousedown', e => {
         if (e.target.innerText !== '=') {
             if (secondNum !== '') {
                 result = operate(operator, firstNum, secondNum);
@@ -93,14 +93,14 @@ operators.forEach(op => {
     })
 })
 
-clearButton.addEventListener('click', () => {
+clearButton.addEventListener('mousedown', () => {
     firstNum = '';
     secondNum = '';
     result = '';
     lowerDisplay.textContent = '0';
 })
 
-deleteButton.addEventListener('click', () => {
+deleteButton.addEventListener('mousedown', () => {
     if (operator === '') {
         firstNum = firstNum.substring(0, firstNum.length - 1);
         lowerDisplay.textContent = firstNum;

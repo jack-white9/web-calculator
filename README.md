@@ -6,4 +6,5 @@ Web Calculator is a basic web-based JavaScript calculator. The calculator receiv
     <li>User can input leading 0s into numbers - while it doesn't break functionality, it is visually unappealing</li>
     <li>Division by 0 creates problems</li>
     <li>Page spills slightly, creating an unwanted scrollbar</li>
+    <li> Clear button is extremely buggy</li>
 </ul>
